@@ -1,0 +1,27 @@
+<nav class="nav-bottom">
+  @for (item of navItems; track item.label) {
+    @if (item.route) {
+      <a class="nav-item"
+         [routerLink]="item.route"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: item.exact ?? false }">
+        <div class="nav-indicator"></div>
+        <div class="nav-icon-wrap">
+          <i [class]="item.icon"></i>
+        </div>
+        <span class="nav-label">{{ item.label }}</span>
+      </a>
+    } @else {
+      <button class="nav-item" (click)="item.action!()">
+        <div class="nav-indicator"></div>
+        <div class="nav-icon-wrap">
+          <i [class]="item.icon"></i>
+          @if (cantidadCarrito > 0) {
+            <span class="nav-badge">{{ cantidadCarrito }}</span>
+          }
+        </div>
+        <span class="nav-label">{{ item.label }}</span>
+      </button>
+    }
+  }
+</nav>

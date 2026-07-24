@@ -1,0 +1,68 @@
+<div class="admin-modal-backdrop" (click)="cancelar()"></div>
+
+<div class="admin-modal-wrap">
+  <div class="admin-modal">
+
+    <div class="admin-modal-header">
+      <h4 class="admin-modal-title">
+        {{ esEdicion ? 'Editar categoría' : 'Nueva categoría' }}
+      </h4>
+      <button class="admin-modal-close" (click)="cancelar()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="admin-modal-body">
+      <div class="row g-3">
+
+        <div class="col-12 col-md-8">
+          <label class="admin-label">Nombre *</label>
+          <input type="text" class="admin-input"
+            [class.error]="f['nombre'].invalid && f['nombre'].touched"
+            placeholder="Ej: Pollos"
+            [formControl]="$any(f['nombre'])">
+          @if (f['nombre'].invalid && f['nombre'].touched) {
+            <span class="admin-msg-error">Nombre requerido (mín. 2 caracteres)</span>
+          }
+        </div>
+
+        <div class="col-12 col-md-4">
+          <label class="admin-label">Orden</label>
+          <input type="number" class="admin-input"
+            min="1" placeholder="1"
+            [formControl]="$any(f['orden'])">
+        </div>
+
+        <div class="col-12">
+          <label class="admin-label">Ícono seleccionado:
+            <i class="bi ms-1" [class]="f['icono'].value" style="color:#C0392B;font-size:1.1rem;"></i>
+          </label>
+          <div class="iconos-grid">
+            @for (icono of iconos; track icono) {
+              <button
+                type="button"
+                class="icono-btn"
+                [class.selected]="f['icono'].value === icono"
+                (click)="seleccionarIcono(icono)"
+                [title]="icono">
+                <i class="bi" [class]="icono"></i>
+              </button>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-modal-footer">
+      <button class="btn-admin-secondary" (click)="cancelar()">Cancelar</button>
+      <button class="btn-admin-primary" (click)="guardar()" [disabled]="guardando">
+        @if (guardando) {
+          <span class="spinner-border spinner-border-sm me-1"></span>
+        }
+        {{ esEdicion ? 'Guardar cambios' : 'Crear categoría' }}
+      </button>
+    </div>
+
+  </div>
+</div>

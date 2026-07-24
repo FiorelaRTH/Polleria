@@ -1,0 +1,41 @@
+@if (visible) {
+  <!-- Backdrop -->
+  <div class="modal-backdrop-custom" (click)="onCancelar()"></div>
+
+  <!-- Modal -->
+  <div class="modal-custom-wrap">
+    <div class="modal-custom">
+      <!-- Icono -->
+      <div class="modal-icon">🍗</div>
+
+      <h5 class="modal-custom-title">¿Confirmar pedido?</h5>
+      <p class="modal-custom-body">
+        Se abrirá WhatsApp para que puedas enviar tu pedido directamente.
+      </p>
+
+      <!-- Resumen -->
+      <div class="modal-resumen">
+        @for (item of carritoService.getItems() | async; track item.producto.id) {
+          <div class="resumen-item">
+            <span>{{ item.cantidad }}x {{ item.producto.nombre }}</span>
+            <span>S/.{{ (item.producto.precio * item.cantidad).toFixed(2) }}</span>
+          </div>
+        }
+        <div class="resumen-total">
+          <span>Total</span>
+          <span>S/.{{ total.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="modal-btns">
+        <button class="btn-modal-cancelar" (click)="onCancelar()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button class="btn-modal-confirmar" (click)="onAceptar()">
+          <i class="bi bi-whatsapp"></i> Sí, pedir ahora
+        </button>
+      </div>
+    </div>
+  </div>
+}

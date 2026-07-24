@@ -1,0 +1,46 @@
+<section class="hero-marquee">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content container">
+    <span class="hero-badge">{{ tagline }}</span>
+
+    <h1 class="hero-title">
+      @for (word of titleWords; track $index) {
+        <span class="hero-word">{{ word }}</span>
+      }
+    </h1>
+
+    <p class="hero-desc">{{ description }}</p>
+
+    @if (bannerText) {
+      <div class="hero-banner-cta" (click)="onBannerClick.emit()">
+        <span class="banner-cta-icon">🔥</span>
+        <span class="banner-cta-text">{{ bannerText }}</span>
+        <span class="banner-cta-arrow">→</span>
+      </div>
+    }
+
+    <div class="hero-actions">
+      <button (click)="onVerCarta.emit()" class="btn-primary-custom">
+        <i class="bi bi-journal-text me-2"></i>{{ ctaText }}
+      </button>
+      <button (click)="onPedirAhora.emit()" class="btn-hero-wa">
+        <i class="bi bi-whatsapp me-2"></i>{{ whatsappText }}
+      </button>
+    </div>
+  </div>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      @for (src of duplicatedImages; track $index) {
+        <div
+          class="marquee-card"
+          [class.even]="$index % 2 === 0"
+          [class.odd]="$index % 2 !== 0"
+        >
+           <img [src]="src" alt="" class="marquee-img" loading="lazy" width="180" height="240" />
+        </div>
+      }
+    </div>
+  </div>
+</section>

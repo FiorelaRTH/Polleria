@@ -1,0 +1,49 @@
+<!-- Header -->
+<div class="page-header page-header-promo">
+  <div class="container">
+    <h1 class="page-header-title">PROMOS DE HOY 🔥</h1>
+    <p class="page-header-sub">Combos especiales por tiempo limitado que no te puedes perder.</p>
+  </div>
+</div>
+
+<section class="promos-section" appReveal>
+  <div class="container">
+
+    @if (promociones.length === 0) {
+      <div class="promos-empty">
+        <div class="empty-emoji">🎉</div>
+        <h5>Próximamente nuevas promociones</h5>
+        <p>Síguenos en redes sociales para no perderte nada</p>
+      </div>
+    }
+
+    <div class="row g-4">
+      @for (promo of promociones; track promo.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="promo-full-card card-custom">
+            <div class="promo-full-img-wrap">
+              <img
+                [src]="promo.imagen"
+                [alt]="promo.titulo"
+                class="promo-full-img"
+                onerror="this.src='assets/images/placeholder-promo.jpg'"
+                width="800" height="400" loading="lazy">
+              <div class="promo-full-overlay"></div>
+              <div class="promo-full-content">
+                <span class="promo-badge-activa">
+                  <i class="bi bi-lightning-charge-fill"></i> Activa
+                </span>
+                <h3 class="promo-full-titulo">{{ promo.titulo }}</h3>
+                <p class="promo-full-desc">{{ promo.descripcion }}</p>
+                <a [href]="whatsappUrl" target="_blank" class="btn-promo-wa">
+                  <i class="bi bi-whatsapp"></i> Aprovechar oferta
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

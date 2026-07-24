@@ -1,0 +1,81 @@
+<div class="admin-page">
+
+  <div class="admin-page-header">
+    <div>
+      <h1 class="admin-page-title">Categorías</h1>
+      <p class="admin-page-sub">{{ categorias.length }} categoría(s) registrada(s)</p>
+    </div>
+    <button class="btn-admin-primary" (click)="nueva()">
+      <i class="bi bi-plus-lg"></i> Nueva categoría
+    </button>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Ícono</th>
+          <th>Nombre</th>
+          <th>Orden</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (categorias.length === 0) {
+          <tr><td colspan="4" class="table-empty">Sin categorías</td></tr>
+        }
+        @for (cat of categorias; track cat.id) {
+          <tr>
+            <td>
+              <div class="cat-icon-cell">
+                <i class="bi" [class]="cat.icono"></i>
+              </div>
+            </td>
+            <td>
+              <span class="cat-nombre">{{ cat.nombre }}</span>
+            </td>
+            <td>
+              <span class="orden-badge">{{ cat.orden }}</span>
+            </td>
+            <td>
+              <div class="acciones">
+                <button class="btn-accion editar" (click)="editar(cat)" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-accion eliminar" (click)="confirmarEliminar(cat)" title="Eliminar">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+@if (mostrarForm) {
+  <app-categorias-form
+    [categoria]="categoriaEdit"
+    (guardado)="onFormGuardado()"
+    (cancelado)="onFormCancelado()">
+  </app-categorias-form>
+}
+
+@if (mostrarConfirm) {
+  <div class="modal-backdrop-custom" (click)="cancelarEliminar()"></div>
+  <div class="modal-custom-wrap">
+    <div class="modal-custom modal-confirm">
+      <div class="modal-confirm-icon">🗑️</div>
+      <h5>¿Eliminar categoría?</h5>
+      <p>Estás a punto de eliminar <strong>{{ categoriaAEliminar?.nombre }}</strong>.</p>
+      <div class="modal-btns">
+        <button class="btn-modal-cancelar" (click)="cancelarEliminar()">Cancelar</button>
+        <button class="btn-modal-danger" (click)="eliminar()">
+          <i class="bi bi-trash3"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+}

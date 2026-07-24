@@ -1,0 +1,199 @@
+.navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid transparent;
+  padding: 16px 0;
+  transition: var(--transition);
+  box-shadow: none;
+
+  &.scrolled {
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom-color: var(--color-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// Brand
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-img-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.brand-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.brand-sub {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--color-gray);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+// Nav links
+.nav-link {
+  color: var(--color-dark) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 8px 18px !important;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  position: relative;
+
+  i {
+    margin-right: 5px;
+    font-size: 0.85rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: var(--transition);
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+
+  &:hover {
+    color: var(--color-primary) !important;
+    background: rgba(220, 38, 38, 0.06);
+
+    &::after {
+      width: 20px;
+    }
+  }
+
+  &.active {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+
+    &::after {
+      width: 24px;
+    }
+  }
+}
+
+.nav-link-admin {
+  color: var(--color-gray) !important;
+  font-size: 0.82rem;
+
+  &:hover {
+    color: var(--color-primary) !important;
+    background: rgba(192, 57, 43, 0.06);
+  }
+}
+
+// Hamburguesa
+.navbar-toggler {
+  border: none;
+  padding: 4px 8px;
+  background: transparent;
+
+  &:focus { box-shadow: none; }
+}
+
+.toggler-icon {
+  font-size: 1.6rem;
+  color: var(--color-dark);
+}
+
+// Botón carrito
+.btn-carrito {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: white;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+
+  i { font-size: 1.15rem; }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+  }
+}
+
+.carrito-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--color-accent);
+  color: var(--color-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-red 1.5s infinite;
+}
+
+.navbar-spacer {
+  height: 70px;
+}
+
+// Mobile
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  .btn-carrito {
+    margin-top: 12px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .carrito-label { display: inline; }
+}
+
+@media (min-width: 992px) {
+  .carrito-label { display: inline; }
+}

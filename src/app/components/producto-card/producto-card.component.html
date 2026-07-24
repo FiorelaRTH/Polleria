@@ -1,0 +1,47 @@
+<div class="card-custom prod-card">
+  <!-- Imagen -->
+  <div class="prod-img-wrap">
+    <img
+      [src]="producto.imagen"
+      [alt]="producto.nombre"
+      class="prod-img"
+      onerror="this.src='assets/images/placeholder.jpg'"
+      width="400" height="300" loading="lazy">
+    @if (producto.destacado) {
+      <span class="prod-badge-dest">⭐ Destacado</span>
+    }
+    @if (!producto.disponible) {
+      <div class="prod-agotado-overlay">Agotado</div>
+    }
+  </div>
+
+  <!-- Body -->
+  <div class="prod-body">
+    <h6 class="prod-nombre">{{ producto.nombre }}</h6>
+    <p class="prod-desc">{{ producto.descripcion }}</p>
+
+    <!-- Incluye -->
+    @if (producto.incluye && producto.incluye.length) {
+      <div class="prod-incluye">
+        <span class="incluye-label">Incluye:</span>
+        <div class="incluye-tags">
+          @for (item of producto.incluye; track item) {
+            <span class="incluye-tag">{{ item }}</span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Precio y botón -->
+    <div class="prod-footer">
+      <span class="precio-badge">S/. {{ producto.precio.toFixed(2) }}</span>
+      <button
+        class="btn-agregar"
+        [disabled]="!producto.disponible"
+        (click)="onAgregar()">
+        <i class="bi bi-plus-lg"></i>
+        Agregar
+      </button>
+    </div>
+  </div>
+</div>

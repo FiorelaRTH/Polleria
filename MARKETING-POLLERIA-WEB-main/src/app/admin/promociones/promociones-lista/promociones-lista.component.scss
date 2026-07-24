@@ -1,0 +1,118 @@
+@import '../../../../styles-admin';
+
+.promos-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+
+  @media (min-width: 576px) { grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 992px) { grid-template-columns: repeat(3, 1fr); }
+}
+
+.promo-admin-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #E9ECEF;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+
+  &:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+}
+
+.promo-admin-img-wrap {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.promo-admin-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #F4F6F8;
+}
+
+.promo-admin-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 50px;
+
+  &.badge-on  { background: rgba(39,174,96,0.9);  color: white; }
+  &.badge-off { background: rgba(192,57,43,0.85); color: white; }
+}
+
+.promo-admin-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.promo-admin-titulo {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #1A1A1A;
+  margin: 0;
+}
+
+.promo-admin-desc {
+  color: #6C757D;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.promo-admin-fechas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  span {
+    font-size: 0.74rem;
+    color: #6C757D;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    i { color: #C0392B; font-size: 0.7rem; }
+  }
+}
+
+.promo-admin-acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+
+  .btn-accion {
+    flex: 1;
+    width: auto;
+    height: auto;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 8px;
+  }
+}
+
+.admin-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #6C757D;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}

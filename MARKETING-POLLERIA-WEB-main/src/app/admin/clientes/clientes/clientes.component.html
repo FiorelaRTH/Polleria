@@ -1,0 +1,83 @@
+<div class="admin-page">
+
+  <div class="admin-page-header">
+    <div>
+      <h1 class="admin-page-title">Clientes</h1>
+      <p class="admin-page-sub">{{ filtrados.length }} cliente(s) registrado(s)</p>
+    </div>
+  </div>
+
+  @if (errorMsg) {
+    <div class="admin-error-alert">
+      <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+    </div>
+  }
+
+  <div class="admin-toolbar">
+    <div class="admin-search-wrap">
+      <i class="bi bi-search admin-search-icon"></i>
+      <input
+        type="text"
+        class="admin-search"
+        placeholder="Buscar por nombre, correo o teléfono..."
+        [(ngModel)]="busqueda"
+        (ngModelChange)="onBusqueda()">
+    </div>
+    <button class="btn-admin-secondary" (click)="cargar()" title="Actualizar lista">
+      <i class="bi bi-arrow-clockwise"></i>
+      <span class="d-none d-md-inline ms-1">Actualizar</span>
+    </button>
+  </div>
+
+  <div class="admin-table-wrap">
+    @if (cargando) {
+      <div class="table-loading">
+        <span class="spinner-border spinner-border-sm me-2"></span> Cargando clientes...
+      </div>
+    } @else {
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Fecha de registro</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (filtrados.length === 0) {
+            <tr>
+              <td colspan="4" class="table-empty">
+                @if (busqueda) {
+                  Sin resultados para "{{ busqueda }}"
+                } @else {
+                  Sin clientes registrados todavía
+                }
+              </td>
+            </tr>
+          }
+          @for (c of filtrados; track c.id) {
+            <tr>
+              <td>
+                <div class="cli-cell">
+                  <div class="cli-avatar">{{ getInicial(c.nombre) }}</div>
+                  <span class="cli-nombre">{{ c.nombre }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="cli-correo">{{ c.correo }}</span>
+              </td>
+              <td>
+                <span class="cli-celular">{{ c.celular }}</span>
+              </td>
+              <td>
+                <span class="cli-fecha">{{ c.fechaRegistro | date:'dd/MM/yyyy HH:mm' }}</span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+
+</div>

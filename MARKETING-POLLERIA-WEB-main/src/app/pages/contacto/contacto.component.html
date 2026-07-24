@@ -1,0 +1,190 @@
+<!-- Header -->
+<div class="page-header page-header-contacto">
+  <div class="container">
+    <h1 class="page-header-title">Encuén<span>tranos</span></h1>
+    <p class="page-header-sub">Estamos aquí para atenderte</p>
+  </div>
+</div>
+
+<section class="contacto-section" appReveal>
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Info de contacto -->
+      <div class="col-12 col-lg-5">
+        <h2 class="contacto-title">¿Cómo podemos <span>ayudarte?</span></h2>
+        <p class="contacto-intro">
+          Visítanos, llámanos o escríbenos. Siempre hay alguien listo para atenderte.
+        </p>
+
+        <div class="info-list">
+          @if (config.direccion) {
+            <div class="info-item-contact">
+              <div class="info-ico-wrap"><i class="bi bi-geo-alt-fill"></i></div>
+              <div>
+                <span class="info-item-label">Dirección</span>
+                <p class="info-item-val">{{ config.direccion }}</p>
+              </div>
+            </div>
+          }
+
+          @if (config.horario) {
+            <div class="info-item-contact">
+              <div class="info-ico-wrap"><i class="bi bi-clock-fill"></i></div>
+              <div>
+                <span class="info-item-label">Horario</span>
+                <p class="info-item-val">{{ config.horario }}</p>
+              </div>
+            </div>
+          }
+
+          @if (config.telefono) {
+            <div class="info-item-contact">
+              <div class="info-ico-wrap"><i class="bi bi-telephone-fill"></i></div>
+              <div>
+                <span class="info-item-label">Teléfono</span>
+                <p class="info-item-val">{{ config.telefono }}</p>
+              </div>
+            </div>
+          }
+
+          @if (config.correo) {
+            <div class="info-item-contact">
+              <div class="info-ico-wrap"><i class="bi bi-envelope-fill"></i></div>
+              <div>
+                <span class="info-item-label">Correo</span>
+                <p class="info-item-val">{{ config.correo }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="contact-btns">
+          @if (config.googleMapsUrl) {
+            <a [href]="config.googleMapsUrl" target="_blank" class="btn-primary-custom">
+              <i class="bi bi-map me-2"></i>Cómo llegar
+            </a>
+          }
+          @if (config.whatsapp) {
+            <a [href]="getWhatsappUrl()" target="_blank" class="btn-wa-contact">
+              <i class="bi bi-whatsapp me-2"></i>WhatsApp
+            </a>
+          }
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="redes-contacto">
+          @if (config.facebook) {
+            <a [href]="config.facebook" target="_blank" class="red-social-btn" title="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+          }
+          @if (config.instagram) {
+            <a [href]="config.instagram" target="_blank" class="red-social-btn instagram" title="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- Formulario de registro -->
+      <div class="col-12 col-lg-7">
+        <div class="form-contacto-card">
+          <h4 class="form-contacto-title">Regístrate y recibe promociones</h4>
+          <p class="form-contacto-desc">Déjanos tus datos y te enviaremos nuestras mejores ofertas.</p>
+
+          @if (enviadoOk) {
+            <div class="alert-success-custom">
+              <i class="bi bi-check-circle-fill"></i>
+              <div>
+                <strong>¡Registro exitoso!</strong>
+                <p>Te contactaremos con nuestras mejores promociones.</p>
+              </div>
+            </div>
+          }
+
+          @if (errorMsg) {
+            <div class="alert-error-custom">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              <span>{{ errorMsg }}</span>
+            </div>
+          }
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label-custom">Nombre completo *</label>
+              <input
+                type="text"
+                class="input-custom"
+                [class.input-error]="f['nombre'].invalid && f['nombre'].touched"
+                placeholder="Tu nombre completo"
+                [formControl]="$any(f['nombre'])">
+              @if (f['nombre'].invalid && f['nombre'].touched) {
+                <span class="input-msg-error">Nombre requerido (mín. 3 caracteres)</span>
+              }
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label-custom">Correo electrónico *</label>
+              <input
+                type="email"
+                class="input-custom"
+                [class.input-error]="f['correo'].invalid && f['correo'].touched"
+                placeholder="tu@correo.com"
+                [formControl]="$any(f['correo'])">
+              @if (f['correo'].invalid && f['correo'].touched) {
+                <span class="input-msg-error">Correo válido requerido</span>
+              }
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label-custom">Teléfono *</label>
+              <input
+                type="tel"
+                class="input-custom"
+                [class.input-error]="f['celular'].invalid && f['celular'].touched"
+                placeholder="987654321"
+                [formControl]="$any(f['celular'])">
+              @if (f['celular'].invalid && f['celular'].touched) {
+                <span class="input-msg-error">Teléfono válido requerido (9-15 dígitos)</span>
+              }
+            </div>
+
+            <div class="col-12">
+              <button
+                class="btn-primary-custom w-100 btn-enviar"
+                (click)="registrar()"
+                [disabled]="enviando">
+                @if (enviando) {
+                  <span class="spinner-border spinner-border-sm me-2"></span> Registrando...
+                } @else {
+                  <i class="bi bi-person-check me-2"></i> Registrarme
+                }
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa -->
+    @if (config.googleMapsEmbed) {
+      <div class="mapa-section">
+        <h3 class="mapa-title">Encuéntranos en el mapa</h3>
+        <div class="mapa-wrap">
+          <iframe
+            [src]="config.googleMapsEmbed | safe"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    }
+
+  </div>
+</section>

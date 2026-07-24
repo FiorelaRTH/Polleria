@@ -1,0 +1,27 @@
+@import '../../../../styles-admin';
+
+.cat-icon-cell {
+  width: 40px;
+  height: 40px;
+  background: rgba(192,57,43,0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i { color: #C0392B; font-size: 1.1rem; }
+}
+
+.cat-nombre {
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.orden-badge {
+  background: #F4F6F8;
+  color: #6C757D;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+}

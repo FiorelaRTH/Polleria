@@ -1,0 +1,685 @@
+// ============================================================
+// VARIABLES GLOBALES - Pollería El Chino
+// ============================================================
+
+:root {
+  --color-primary:       #DC2626;
+  --color-primary-dark:  #B91C1C;
+  --color-primary-light: #F87171;
+  --color-accent:        #F59E0B;
+  --color-accent-light:  #FCD34D;
+  --color-accent-dark:   #B45309;
+  --color-dark:          #1A1A1A;
+  --color-gray:          #6B7280;
+  --color-gray-light:    #9CA3AF;
+  --color-light-bg:      #FEF2F2;
+  --color-white:         #FFFFFF;
+  --color-border:        #FECACA;
+  --color-success:       #10B981;
+  --color-whatsapp:      #25D366;
+  --font-display:        'Playfair Display', serif;
+  --font-body:           'Karla', sans-serif;
+  --shadow-sm:           0 1px 3px rgba(220, 38, 38, 0.08);
+  --shadow-card:         0 4px 24px rgba(220, 38, 38, 0.10);
+  --shadow-hover:        0 12px 40px rgba(220, 38, 38, 0.18);
+  --shadow-lg:           0 20px 60px rgba(0, 0, 0, 0.12);
+  --radius-sm:           8px;
+  --radius-card:         20px;
+  --radius-btn:          50px;
+  --transition:          all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:     all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --z-navbar:            1030;
+  --z-sidebar:           1050;
+  --z-modal:             2000;
+  --z-whatsapp:          999;
+}
+
+// ============================================================
+// RESET Y BASE
+// ============================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  overflow-x: hidden;
+}
+
+// ============================================================
+// TIPOGRAFÍA
+// ============================================================
+
+h1, h2, h3, .display-font {
+  font-family: var(--font-display);
+}
+
+// ============================================================
+// BOTONES GLOBALES
+// ============================================================
+
+.btn-primary-custom {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15));
+    pointer-events: none;
+  }
+
+  &:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.35);
+    color: var(--color-white);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-accent-custom {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 28px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+    color: var(--color-white);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+.btn-outline-primary-custom {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-btn);
+  padding: 10px 26px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.25);
+  }
+}
+
+// ============================================================
+// TARJETAS GLOBALES
+// ============================================================
+
+.card-custom {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  overflow: hidden;
+  background: var(--color-white);
+  position: relative;
+
+  &:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-6px);
+  }
+}
+
+// ============================================================
+// SECCIONES
+// ============================================================
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--color-dark);
+  font-weight: 800;
+
+  span {
+    color: var(--color-primary);
+  }
+}
+
+.section-subtitle {
+  color: var(--color-gray);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  border-radius: 2px;
+  margin: 0 auto 1rem;
+}
+
+// ============================================================
+// BADGE PRECIO
+// ============================================================
+
+.precio-badge {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: var(--color-white);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+// ============================================================
+// WHATSAPP FLOTANTE
+// ============================================================
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  z-index: var(--z-whatsapp);
+  background: var(--color-whatsapp);
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+  transition: var(--transition);
+  text-decoration: none;
+  animation: whatsappPulse 2s infinite;
+
+  &:hover {
+    transform: scale(1.12);
+    color: white;
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+  }
+}
+
+// ============================================================
+// SCROLLBAR
+// ============================================================
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
+
+// ============================================================
+// ANIMACIONES
+// ============================================================
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(220, 38, 38, 0); }
+}
+
+@keyframes whatsappPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5); }
+  50%       { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.8); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.fade-in-scale {
+  animation: fadeInScale 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+// Scroll reveal - applied via CSS classes in HTML
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.revealed {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.revealed {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+// ============================================================
+// UTILIDADES
+// ============================================================
+
+.bg-light-custom { background-color: var(--color-light-bg) !important; }
+.text-primary-custom { color: var(--color-primary) !important; }
+.text-accent { color: var(--color-accent) !important; }
+
+// Ocultar scrollbar en carrito lateral
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// ============================================================
+// MODAL CONFIRMACIÓN
+// ============================================================
+
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: var(--z-modal);
+  backdrop-filter: blur(8px);
+}
+
+.modal-custom-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal) + 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-custom {
+  background: white;
+  border-radius: 24px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInScale 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.modal-custom-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.modal-custom-body {
+  color: var(--color-gray);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.modal-resumen {
+  background: var(--color-light-bg);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.resumen-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-dark);
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--color-border);
+
+  &:last-of-type { border: none; }
+}
+
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1rem;
+  padding-top: 8px;
+  margin-top: 4px;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-modal-cancelar {
+  flex: 1;
+  background: transparent;
+  border: 2px solid var(--color-border);
+  border-radius: 50px;
+  padding: 12px;
+  font-weight: 600;
+  color: var(--color-gray);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.88rem;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+}
+
+.btn-modal-confirmar {
+  flex: 2;
+  background: var(--color-whatsapp);
+  border: none;
+  border-radius: 50px;
+  padding: 12px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &:hover {
+    background: #1ebe5a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+}
+
+// ============================================================
+// FORMULARIO PROMOCIONAL
+// ============================================================
+
+.form-promo-wrap {
+  padding: 8px 0;
+}
+
+.form-promo-header {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .form-promo-icon { font-size: 2.5rem; margin-bottom: 8px; }
+
+  h6 {
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: var(--color-gray);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
+
+.form-label-custom {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.input-custom {
+  width: 100%;
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--color-dark);
+  background: white;
+  transition: border-color 0.2s;
+  outline: none;
+
+  &:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+  }
+
+  &.input-error {
+    border-color: #e74c3c;
+  }
+
+  &::placeholder { color: #bbb; }
+}
+
+.input-msg-error {
+  color: #e74c3c;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: block;
+}
+
+.form-promo-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-promo-omitir {
+  flex: 1;
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  border-radius: 50px;
+  padding: 10px;
+  font-weight: 500;
+  color: var(--color-gray);
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--color-gray);
+    color: var(--color-dark);
+  }
+}
+
+.btn-promo-guardar {
+  flex: 2;
+  background: var(--color-primary);
+  border: none;
+  border-radius: 50px;
+  padding: 10px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  &:disabled { opacity: 0.7; cursor: not-allowed; }
+}
+
+.form-promo-success {
+  text-align: center;
+  padding: 30px 16px;
+
+  .success-icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+  h6 {
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: var(--color-gray);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
+
+.alert-error-custom {
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--color-primary);
+  font-size: 0.88rem;
+  font-weight: 500;
+
+  i { font-size: 1.1rem; flex-shrink: 0; }
+}

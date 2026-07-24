@@ -1,0 +1,72 @@
+<div class="form-promo-wrap">
+
+  @if (!guardadoOk) {
+    <div class="form-promo-header">
+      <div class="form-promo-icon">🎁</div>
+      <h6>¡Tu pedido fue enviado!</h6>
+      <p>Regístrate para recibir promociones exclusivas. Es opcional.</p>
+    </div>
+
+    <div class="form-promo-fields">
+      <div class="mb-3">
+        <label class="form-label-custom">Nombre completo</label>
+        <input
+          type="text"
+          class="input-custom"
+          [class.input-error]="f['nombre'].invalid && f['nombre'].touched"
+          placeholder="Tu nombre"
+          [formControl]="$any(f['nombre'])">
+        @if (f['nombre'].invalid && f['nombre'].touched) {
+          <span class="input-msg-error">Ingresa tu nombre (mín. 3 caracteres)</span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label-custom">Correo electrónico</label>
+        <input
+          type="email"
+          class="input-custom"
+          [class.input-error]="f['correo'].invalid && f['correo'].touched"
+          placeholder="tu@correo.com"
+          [formControl]="$any(f['correo'])">
+        @if (f['correo'].invalid && f['correo'].touched) {
+          <span class="input-msg-error">Ingresa un correo válido</span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label-custom">Celular</label>
+        <input
+          type="tel"
+          class="input-custom"
+          [class.input-error]="f['celular'].invalid && f['celular'].touched"
+          placeholder="987654321"
+          [formControl]="$any(f['celular'])">
+        @if (f['celular'].invalid && f['celular'].touched) {
+          <span class="input-msg-error">Ingresa un celular válido (9 dígitos)</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-promo-btns">
+      <button class="btn-promo-omitir" (click)="omitir()" type="button">
+        Omitir
+      </button>
+      <button class="btn-promo-guardar" (click)="guardar()" type="button" [disabled]="guardando">
+        @if (guardando) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+        }
+        Guardar
+      </button>
+    </div>
+  }
+
+  @if (guardadoOk) {
+    <div class="form-promo-success">
+      <div class="success-icon">✅</div>
+      <h6>¡Datos guardados!</h6>
+      <p>Te enviaremos las mejores promociones a tu correo.</p>
+    </div>
+  }
+
+</div>

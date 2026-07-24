@@ -1,0 +1,101 @@
+.form-promo-wrap {
+  padding: 8px 0;
+}
+
+.form-promo-header {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .form-promo-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+
+  h6 {
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: var(--color-gray);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
+
+.form-promo-fields {
+  margin-bottom: 16px;
+}
+
+.form-promo-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.btn-promo-omitir {
+  flex: 1;
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  padding: 10px;
+  font-weight: 500;
+  color: var(--color-gray);
+  cursor: pointer;
+  font-size: 0.88rem;
+  transition: var(--transition);
+
+  &:hover {
+    border-color: var(--color-gray);
+    color: var(--color-dark);
+  }
+}
+
+.btn-promo-guardar {
+  flex: 2;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 10px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.form-promo-success {
+  text-align: center;
+  padding: 30px 16px;
+
+  .success-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  h6 {
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: var(--color-gray);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}

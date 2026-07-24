@@ -1,0 +1,155 @@
+<!-- ======================================================
+     HERO - MARQUEE (reemplaza carrusel Bootstrap)
+     ====================================================== -->
+<app-hero-marquee
+  [tagline]="'El favorito de Apurímac'"
+  [title]="'El Mejor Pollo a la Brasa'"
+  [description]="'Receta secreta de más de 20 años. Pide el clásico que todos aman.'"
+  [ctaText]="'Ver Carta'"
+  [whatsappText]="'Pedir Ahora'"
+  [images]="imagenesHero"
+  (onVerCarta)="irACarta()"
+  (onPedirAhora)="scrollAProductos()">
+</app-hero-marquee>
+
+<!-- ======================================================
+     INFO RÁPIDA
+     ====================================================== -->
+<section class="info-rapida-section">
+  <div class="container">
+    <div class="info-rapida-grid">
+      @for (info of infoRapida; track info.label) {
+        <div class="info-card">
+          <div class="info-icon-wrap">
+            <i class="bi" [class]="info.icono"></i>
+          </div>
+          <div>
+            <span class="info-label">{{ info.label }}</span>
+            <p class="info-valor">{{ info.texto }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     PRODUCTOS DESTACADOS
+     ====================================================== -->
+<section id="productos-destacados" class="section-gap" appReveal>
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-divider"></div>
+      <h2 class="section-title">Nuestros <span>Favoritos</span></h2>
+      <p class="section-subtitle">Los productos más pedidos por nuestros clientes</p>
+    </div>
+
+    <div class="row g-4">
+      @for (producto of destacados; track producto.id) {
+        <div class="col-12 col-sm-6 col-lg-3">
+          <app-producto-card
+            [producto]="producto"
+            (agregar)="agregarAlCarrito($event)">
+          </app-producto-card>
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-5">
+      <a routerLink="/carta" class="btn-primary-custom">
+        <i class="bi bi-journal-text me-2"></i>Ver Carta Completa
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     BANNER INTERMEDIO
+     ====================================================== -->
+<section class="banner-intermedio" appReveal>
+  <div class="container">
+    <div class="banner-content">
+      <div class="banner-text">
+        <span class="banner-eyebrow">🍗 Tradición desde 2003</span>
+        <h2 class="banner-title">Más de 20 años <br>con el mismo sabor</h2>
+        <p class="banner-desc">Nuestro pollo se marina 24 horas con especias seleccionadas y se cocina en brasa de leña. El secreto está en el tiempo y la pasión.</p>
+        <a routerLink="/contacto" class="btn-outline-primary-custom mt-2">
+          <i class="bi bi-geo-alt me-2"></i>Cómo llegar
+        </a>
+      </div>
+      <div class="banner-stats">
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-lab">Años de experiencia</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">5K+</span>
+          <span class="stat-lab">Clientes felices</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">15+</span>
+          <span class="stat-lab">Platos en carta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     PROMOCIONES
+     ====================================================== -->
+<section class="section-gap" appReveal>
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-divider"></div>
+      <h2 class="section-title">Nuestras <span>Promociones</span></h2>
+      <p class="section-subtitle">Aprovecha nuestras ofertas especiales</p>
+    </div>
+
+    <div class="row g-4">
+      @for (promo of promociones; track promo.id) {
+        <div class="col-12 col-md-4">
+          <div class="promo-card card-custom">
+            <div class="promo-img-wrap">
+              <img [src]="promo.imagen" [alt]="promo.titulo" class="promo-img"
+                   onerror="this.src='assets/images/placeholder-promo.jpg'" width="600" height="300" loading="lazy">
+              <div class="promo-overlay"></div>
+            </div>
+            <div class="promo-body">
+              <h6 class="promo-titulo">{{ promo.titulo }}</h6>
+              <p class="promo-desc">{{ promo.descripcion }}</p>
+              <a routerLink="/promociones" class="btn-outline-primary-custom btn-sm-custom">
+                Ver detalle <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-5">
+      <a routerLink="/promociones" class="btn-accent-custom">
+        <i class="bi bi-tags me-2"></i>Ver todas las promociones
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     CTA WHATSAPP
+     ====================================================== -->
+<section class="cta-wa-section" appReveal>
+  <div class="container">
+    <div class="cta-wa-box">
+      <div class="cta-wa-emoji">📱</div>
+      <div class="cta-wa-text">
+        <h3>¿Listo para pedir?</h3>
+        <p>Escríbenos por WhatsApp y recibe tu pedido en minutos</p>
+      </div>
+      <a [href]="getWhatsappUrl()" target="_blank" class="btn-wa-cta">
+        <i class="bi bi-whatsapp"></i>
+        Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

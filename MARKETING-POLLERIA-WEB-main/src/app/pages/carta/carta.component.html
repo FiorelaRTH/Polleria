@@ -1,0 +1,90 @@
+<!-- Header de página -->
+<div class="page-header">
+  <div class="page-header-flex">
+    <div class="page-header-img-wrap">
+      @if (bannerUrl) {
+        <img [src]="bannerUrl" alt="Arma tu pedido" class="page-header-img" (click)="scrollAProductos()">
+      }
+    </div>
+    <div class="page-header-text">
+      <h1 class="page-header-title">Nuestra <span>Carta</span></h1>
+      <p class="page-header-sub">Elige tu plato favorito y pídelo al instante</p>
+    </div>
+  </div>
+</div>
+
+<section class="carta-section" appReveal>
+  <div class="container">
+
+    <!-- Buscador y filtros -->
+    <div class="carta-toolbar">
+
+      <!-- Buscador -->
+      <div class="buscador-wrap">
+        <i class="bi bi-search buscador-icon"></i>
+        <input
+          type="text"
+          class="buscador-input"
+          placeholder="Buscar en la carta..."
+          [(ngModel)]="busqueda"
+          (ngModelChange)="onBusqueda()">
+        @if (busqueda) {
+          <button class="buscador-clear" (click)="limpiarBusqueda()">
+            <i class="bi bi-x"></i>
+          </button>
+        }
+      </div>
+
+      <!-- Filtros por categoría -->
+      <div class="filtros-wrap">
+        <button
+          class="filtro-btn"
+          [class.active]="categoriaActiva === 'todas'"
+          (click)="filtrarPorCategoria('todas')">
+          <i class="bi bi-grid-3x3-gap"></i> Todos
+        </button>
+        @for (cat of categorias; track cat.id) {
+          <button
+            class="filtro-btn"
+            [class.active]="categoriaActiva === cat.id"
+            (click)="filtrarPorCategoria(cat.id)">
+            <i class="bi" [class]="cat.icono"></i> {{ cat.nombre }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="carta-resultados-info">
+      @if (busqueda) {
+        <p>Resultados para "<strong>{{ busqueda }}</strong>": {{ filtrados.length }} producto(s)</p>
+      } @else if (categoriaActiva !== 'todas') {
+        <p>{{ filtrados.length }} producto(s) en <strong>{{ getNombreCategoria(categoriaActiva) }}</strong></p>
+      }
+    </div>
+
+    <!-- Grid de productos -->
+    @if (filtrados.length > 0) {
+      <div class="row g-4">
+        @for (producto of filtrados; track producto.id) {
+          <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <app-producto-card
+              [producto]="producto"
+              (agregar)="agregarAlCarrito($event)">
+            </app-producto-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="carta-empty">
+        <div class="empty-emoji">🔍</div>
+        <h5>No encontramos resultados</h5>
+        <p>Intenta con otra búsqueda o categoría</p>
+        <button class="btn-primary-custom" (click)="filtrarPorCategoria('todas')">
+          Ver toda la carta
+        </button>
+      </div>
+    }
+
+  </div>
+</section>

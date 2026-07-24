@@ -1,0 +1,165 @@
+<div class="admin-modal-backdrop" (click)="cancelar()"></div>
+
+<div class="admin-modal-wrap">
+  <div class="admin-modal">
+
+    <div class="admin-modal-header">
+      <h4 class="admin-modal-title">
+        {{ esEdicion ? 'Editar producto' : 'Nuevo producto' }}
+      </h4>
+      <button class="admin-modal-close" (click)="cancelar()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="admin-modal-body">
+      <div class="row g-3">
+
+        <!-- Nombre -->
+        <div class="col-12 col-md-6">
+          <label class="admin-label">Nombre *</label>
+          <input type="text" class="admin-input"
+            [class.error]="f['nombre'].invalid && f['nombre'].touched"
+            placeholder="Ej: 1/4 Pollo a la Brasa"
+            [formControl]="$any(f['nombre'])">
+          @if (f['nombre'].invalid && f['nombre'].touched) {
+            <span class="admin-msg-error">Nombre requerido (mín. 3 caracteres)</span>
+          }
+        </div>
+
+        <!-- Precio -->
+        <div class="col-12 col-md-3">
+          <label class="admin-label">Precio (S/.) *</label>
+          <input type="number" class="admin-input"
+            [class.error]="f['precio'].invalid && f['precio'].touched"
+            placeholder="0.00" step="0.50" min="0"
+            [formControl]="$any(f['precio'])">
+          @if (f['precio'].invalid && f['precio'].touched) {
+            <span class="admin-msg-error">Precio válido requerido</span>
+          }
+        </div>
+
+        <!-- Categoría -->
+        <div class="col-12 col-md-3">
+          <label class="admin-label">Categoría *</label>
+          <select class="admin-input admin-select-input"
+            [class.error]="f['categoriaId'].invalid && f['categoriaId'].touched"
+            [formControl]="$any(f['categoriaId'])">
+            <option value="">Seleccionar</option>
+            @for (cat of categorias; track cat.id) {
+              <option [value]="cat.id">{{ cat.nombre }}</option>
+            }
+          </select>
+          @if (f['categoriaId'].invalid && f['categoriaId'].touched) {
+            <span class="admin-msg-error">Selecciona una categoría</span>
+          }
+        </div>
+
+        <!-- Descripción -->
+        <div class="col-12">
+          <label class="admin-label">Descripción *</label>
+          <textarea class="admin-input admin-textarea"
+            [class.error]="f['descripcion'].invalid && f['descripcion'].touched"
+            placeholder="Descripción del producto..."
+            [formControl]="$any(f['descripcion'])"></textarea>
+          @if (f['descripcion'].invalid && f['descripcion'].touched) {
+            <span class="admin-msg-error">Descripción requerida</span>
+          }
+        </div>
+
+        <!-- Imagen -->
+        <div class="col-12">
+          <label class="admin-label">Imagen</label>
+          <div
+            class="img-preview-wrap"
+            [class.drag-over]="dragOver"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave()"
+            (drop)="onDrop($event)"
+            (click)="abrirSelector()">
+
+            @if (imagenPreview) {
+              <img [src]="imagenPreview" class="img-preview" alt="Preview"
+                   onerror="this.src='assets/images/placeholder.jpg'">
+              <p style="font-size:0.78rem;color:#6C757D;margin:0">Clic o arrastra para cambiar</p>
+            } @else {
+              <div class="img-placeholder">
+                <i class="bi bi-cloud-arrow-up"></i>
+                <span>Arrastra una imagen aquí</span>
+                <strong>o haz clic para seleccionar</strong>
+              </div>
+            }
+          </div>
+          <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileChange($event)">
+
+          <div class="mt-2">
+            <label class="admin-label">O pega la URL de la imagen</label>
+            <input type="text" class="admin-input"
+              placeholder="assets/images/productos/mi-imagen.jpg"
+              [formControl]="$any(f['imagen'])"
+              (input)="imagenPreview = f['imagen'].value">
+          </div>
+        </div>
+
+        <!-- Incluye -->
+        <div class="col-12">
+          <label class="admin-label">Incluye (acompañamientos)</label>
+          <div class="incluye-list">
+            @for (item of incluye; track item) {
+              <span class="incluye-item">
+                {{ item }}
+                <button class="incluye-remove" type="button" (click)="quitarIncluye(item)">
+                  <i class="bi bi-x"></i>
+                </button>
+              </span>
+            }
+          </div>
+          <div class="incluye-add-wrap">
+            <input type="text" class="incluye-add-input"
+              placeholder="Ej: Papas fritas"
+              [(ngModel)]="incluyeNuevo"
+              (keyup.enter)="agregarIncluye()">
+            <button type="button" class="btn-incluye-add" (click)="agregarIncluye()">
+              <i class="bi bi-plus-lg"></i> Agregar
+            </button>
+          </div>
+        </div>
+
+        <!-- Toggles -->
+        <div class="col-12 col-md-6">
+          <label class="admin-label">Estado</label>
+          <div class="admin-toggle-wrap">
+            <label class="admin-toggle">
+              <input type="checkbox" [formControl]="$any(f['disponible'])">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">{{ f['disponible'].value ? 'Disponible' : 'No disponible' }}</span>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="admin-label">Destacado en inicio</label>
+          <div class="admin-toggle-wrap">
+            <label class="admin-toggle">
+              <input type="checkbox" [formControl]="$any(f['destacado'])">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">{{ f['destacado'].value ? 'Sí, destacado' : 'No destacado' }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-modal-footer">
+      <button class="btn-admin-secondary" (click)="cancelar()">Cancelar</button>
+      <button class="btn-admin-primary" (click)="guardar()" [disabled]="guardando">
+        @if (guardando) {
+          <span class="spinner-border spinner-border-sm me-1"></span>
+        }
+        {{ esEdicion ? 'Guardar cambios' : 'Crear producto' }}
+      </button>
+    </div>
+
+  </div>
+</div>

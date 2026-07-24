@@ -1,0 +1,88 @@
+<div class="login-page">
+
+  <div class="login-left">
+    <div class="login-brand">
+      <span class="login-emoji">🍗</span>
+      <div>
+        <h1 class="login-brand-name">El Chino</h1>
+        <span class="login-brand-sub">Panel Administrador</span>
+      </div>
+    </div>
+    <p class="login-slogan">Gestiona tu pollería desde un solo lugar</p>
+    <div class="login-features">
+      <div class="login-feature"><i class="bi bi-box-seam"></i> Administra productos y carta</div>
+      <div class="login-feature"><i class="bi bi-tags"></i> Controla tus promociones</div>
+      <div class="login-feature"><i class="bi bi-people"></i> Visualiza tus clientes</div>
+      <div class="login-feature"><i class="bi bi-gear"></i> Configura tu negocio</div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      <h2 class="login-title">Iniciar sesión</h2>
+      <p class="login-subtitle">Ingresa tus credenciales para continuar</p>
+
+      @if (errorMsg) {
+        <div class="login-error">
+          <i class="bi bi-exclamation-circle-fill"></i>
+          {{ errorMsg }}
+        </div>
+      }
+
+      <div class="mb-3">
+        <label class="login-label">Correo electrónico</label>
+        <div class="login-input-wrap">
+          <i class="bi bi-envelope login-input-icon"></i>
+          <input
+            type="email"
+            class="login-input"
+            [class.login-input-error]="f['email'].invalid && f['email'].touched"
+            placeholder="admin@polleriaelchino.pe"
+            [formControl]="$any(f['email'])">
+        </div>
+        @if (f['email'].invalid && f['email'].touched) {
+          <span class="login-msg-error">Ingresa un correo válido</span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="login-label">Contraseña</label>
+        <div class="login-input-wrap">
+          <i class="bi bi-lock login-input-icon"></i>
+          <input
+            [type]="verPassword ? 'text' : 'password'"
+            class="login-input login-input-pass"
+            [class.login-input-error]="f['password'].invalid && f['password'].touched"
+            placeholder="••••••••"
+            [formControl]="$any(f['password'])">
+          <button class="login-toggle-pass" type="button" (click)="verPassword = !verPassword">
+            <i class="bi" [class.bi-eye]="!verPassword" [class.bi-eye-slash]="verPassword"></i>
+          </button>
+        </div>
+        @if (f['password'].invalid && f['password'].touched) {
+          <span class="login-msg-error">Contraseña requerida (mín. 6 caracteres)</span>
+        }
+      </div>
+
+      <div class="login-recordar mb-4">
+        <label class="login-check-label">
+          <input type="checkbox" [formControl]="$any(f['recordar'])">
+          <span>Recordar sesión</span>
+        </label>
+      </div>
+
+      <button class="login-btn" (click)="ingresar()" [disabled]="cargando">
+        @if (cargando) {
+          <span class="spinner-border spinner-border-sm me-2"></span> Ingresando...
+        } @else {
+          <i class="bi bi-box-arrow-in-right me-2"></i> Ingresar
+        }
+      </button>
+
+      <p class="login-hint">
+        Demo: <strong>admin&#64;polleriaelchino.pe</strong> / <strong>admin123</strong>
+      </p>
+    </div>
+  </div>
+
+</div>

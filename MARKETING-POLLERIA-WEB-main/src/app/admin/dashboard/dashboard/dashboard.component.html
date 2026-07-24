@@ -1,0 +1,87 @@
+<div class="dash-page">
+
+  <!-- Header -->
+  <div class="dash-header">
+    <div>
+      <h1 class="dash-title">Dashboard</h1>
+      <p class="dash-subtitle">Resumen general de tu negocio</p>
+    </div>
+    <div class="dash-fecha">
+      <i class="bi bi-calendar3"></i>
+      {{ hoy | date:'EEEE, d MMMM yyyy' : '' : 'es' }}
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <a [routerLink]="stat.ruta" class="stat-card" [class]="stat.color">
+        <div class="stat-icon">
+          <i class="bi" [class]="stat.icon"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-valor">{{ stat.valor }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </a>
+    }
+  </div>
+
+  <div class="dash-grid-bottom">
+
+    <!-- Últimos clientes -->
+    <div class="dash-card">
+      <div class="dash-card-header">
+        <h5 class="dash-card-title">
+          <i class="bi bi-people"></i> Últimos clientes
+        </h5>
+        <a routerLink="/admin/clientes" class="dash-ver-mas">Ver todos</a>
+      </div>
+      <div class="dash-card-body">
+        @if (ultimosClientes.length === 0) {
+          <p class="dash-empty">Sin clientes registrados aún.</p>
+        }
+        @for (cliente of ultimosClientes; track cliente.id) {
+          <div class="dash-cliente-item">
+            <div class="dash-cliente-avatar">
+              {{ cliente.nombre.charAt(0).toUpperCase() }}
+            </div>
+            <div class="dash-cliente-info">
+              <span class="dash-cliente-nombre">{{ cliente.nombre }}</span>
+              <span class="dash-cliente-correo">{{ cliente.correo }}</span>
+            </div>
+            <span class="dash-cliente-fecha">{{ cliente.fechaRegistro }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Últimas promociones activas -->
+    <div class="dash-card">
+      <div class="dash-card-header">
+        <h5 class="dash-card-title">
+          <i class="bi bi-megaphone"></i> Promociones activas
+        </h5>
+        <a routerLink="/admin/promociones" class="dash-ver-mas">Ver todas</a>
+      </div>
+      <div class="dash-card-body">
+        @if (ultimasPromos.length === 0) {
+          <p class="dash-empty">Sin promociones activas.</p>
+        }
+        @for (promo of ultimasPromos; track promo.id) {
+          <div class="dash-promo-item">
+            <div class="dash-promo-dot"></div>
+            <div class="dash-promo-info">
+              <span class="dash-promo-titulo">{{ promo.titulo }}</span>
+              @if (promo.fechaFin) {
+                <span class="dash-promo-fecha">Hasta: {{ promo.fechaFin }}</span>
+              }
+            </div>
+            <span class="badge-activa">Activa</span>
+          </div>
+        }
+      </div>
+    </div>
+
+  </div>
+</div>

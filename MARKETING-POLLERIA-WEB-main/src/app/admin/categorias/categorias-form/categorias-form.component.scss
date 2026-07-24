@@ -1,0 +1,35 @@
+@import '../../../../styles-admin';
+
+.iconos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.icono-btn {
+  width: 44px;
+  height: 44px;
+  background: #F4F6F8;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.1rem;
+  color: #6C757D;
+
+  &:hover {
+    border-color: #C0392B;
+    color: #C0392B;
+    background: rgba(192,57,43,0.06);
+  }
+
+  &.selected {
+    border-color: #C0392B;
+    background: rgba(192,57,43,0.1);
+    color: #C0392B;
+  }
+}

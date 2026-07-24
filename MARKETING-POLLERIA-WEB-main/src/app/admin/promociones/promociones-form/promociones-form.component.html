@@ -1,0 +1,105 @@
+<div class="admin-modal-backdrop" (click)="cancelar()"></div>
+
+<div class="admin-modal-wrap">
+  <div class="admin-modal">
+
+    <div class="admin-modal-header">
+      <h4 class="admin-modal-title">
+        {{ esEdicion ? 'Editar promoción' : 'Nueva promoción' }}
+      </h4>
+      <button class="admin-modal-close" (click)="cancelar()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="admin-modal-body">
+      <div class="row g-3">
+
+        <div class="col-12">
+          <label class="admin-label">Título *</label>
+          <input type="text" class="admin-input"
+            [class.error]="f['titulo'].invalid && f['titulo'].touched"
+            placeholder="Ej: 2x1 en Combos"
+            [formControl]="$any(f['titulo'])">
+          @if (f['titulo'].invalid && f['titulo'].touched) {
+            <span class="admin-msg-error">Título requerido (mín. 5 caracteres)</span>
+          }
+        </div>
+
+        <div class="col-12">
+          <label class="admin-label">Descripción *</label>
+          <textarea class="admin-input admin-textarea"
+            [class.error]="f['descripcion'].invalid && f['descripcion'].touched"
+            placeholder="Descripción de la promoción..."
+            [formControl]="$any(f['descripcion'])"></textarea>
+          @if (f['descripcion'].invalid && f['descripcion'].touched) {
+            <span class="admin-msg-error">Descripción requerida</span>
+          }
+        </div>
+
+        <div class="col-12">
+          <label class="admin-label">Imagen</label>
+          <div
+            class="img-preview-wrap"
+            [class.drag-over]="dragOver"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave()"
+            (drop)="onDrop($event)"
+            (click)="abrirSelector()">
+            @if (imagenPreview) {
+              <img [src]="imagenPreview" class="img-preview" alt="Preview"
+                   onerror="this.src='assets/images/placeholder-promo.jpg'">
+              <p style="font-size:0.78rem;color:#6C757D;margin:0">Clic para cambiar</p>
+            } @else {
+              <div class="img-placeholder">
+                <i class="bi bi-cloud-arrow-up"></i>
+                <span>Arrastra una imagen o haz clic</span>
+              </div>
+            }
+          </div>
+          <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileChange($event)">
+          <div class="mt-2">
+            <label class="admin-label">O pega la URL</label>
+            <input type="text" class="admin-input"
+              placeholder="assets/images/promociones/promo.jpg"
+              [formControl]="$any(f['imagen'])"
+              (input)="imagenPreview = f['imagen'].value">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="admin-label">Fecha inicio</label>
+          <input type="date" class="admin-input" [formControl]="$any(f['fechaInicio'])">
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="admin-label">Fecha fin</label>
+          <input type="date" class="admin-input" [formControl]="$any(f['fechaFin'])">
+        </div>
+
+        <div class="col-12">
+          <label class="admin-label">Estado</label>
+          <div class="admin-toggle-wrap">
+            <label class="admin-toggle">
+              <input type="checkbox" [formControl]="$any(f['activa'])">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">{{ f['activa'].value ? 'Promoción activa' : 'Promoción inactiva' }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="admin-modal-footer">
+      <button class="btn-admin-secondary" (click)="cancelar()">Cancelar</button>
+      <button class="btn-admin-primary" (click)="guardar()" [disabled]="guardando">
+        @if (guardando) {
+          <span class="spinner-border spinner-border-sm me-1"></span>
+        }
+        {{ esEdicion ? 'Guardar cambios' : 'Crear promoción' }}
+      </button>
+    </div>
+
+  </div>
+</div>

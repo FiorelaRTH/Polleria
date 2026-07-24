@@ -1,0 +1,131 @@
+<div class="admin-page">
+
+  <!-- Header -->
+  <div class="admin-page-header">
+    <div>
+      <h1 class="admin-page-title">Productos</h1>
+      <p class="admin-page-sub">{{ filtrados.length }} producto(s) encontrado(s)</p>
+    </div>
+    <button class="btn-admin-primary" (click)="nuevo()">
+      <i class="bi bi-plus-lg"></i> Nuevo producto
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <div class="admin-toolbar">
+    <div class="admin-search-wrap">
+      <i class="bi bi-search admin-search-icon"></i>
+      <input
+        type="text"
+        class="admin-search"
+        placeholder="Buscar producto..."
+        [(ngModel)]="busqueda"
+        (ngModelChange)="aplicarFiltros()">
+    </div>
+
+    <select class="admin-select" [(ngModel)]="filtroCategoria" (ngModelChange)="aplicarFiltros()">
+      <option value="todas">Todas las categorías</option>
+      @for (cat of categorias; track cat.id) {
+        <option [value]="cat.id">{{ cat.nombre }}</option>
+      }
+    </select>
+
+    <select class="admin-select" [(ngModel)]="filtroEstado" (ngModelChange)="aplicarFiltros()">
+      <option value="todos">Todos los estados</option>
+      <option value="activos">Activos</option>
+      <option value="inactivos">Inactivos</option>
+    </select>
+  </div>
+
+  <!-- Tabla -->
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (filtrados.length === 0) {
+          <tr>
+            <td colspan="5" class="table-empty">Sin resultados</td>
+          </tr>
+        }
+        @for (p of filtrados; track p.id) {
+          <tr>
+            <td>
+              <div class="prod-cell">
+                <img [src]="p.imagen" [alt]="p.nombre" class="prod-thumb"
+                     onerror="this.src='assets/images/placeholder.jpg'">
+                <div>
+                  <span class="prod-nombre">{{ p.nombre }}</span>
+                  <span class="prod-desc-short">{{ p.descripcion | slice:0:50 }}...</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="cat-badge">{{ getNombreCategoria(p.categoriaId) }}</span>
+            </td>
+            <td>
+              <span class="precio-cell">S/.{{ p.precio.toFixed(2) }}</span>
+            </td>
+            <td>
+              <button
+                class="toggle-estado"
+                [class.activo]="p.disponible"
+                [class.inactivo]="!p.disponible"
+                (click)="toggleDisponible(p)"
+                [title]="p.disponible ? 'Desactivar' : 'Activar'">
+                <i class="bi" [class.bi-check-circle-fill]="p.disponible" [class.bi-x-circle-fill]="!p.disponible"></i>
+                {{ p.disponible ? 'Activo' : 'Inactivo' }}
+              </button>
+            </td>
+            <td>
+              <div class="acciones">
+                <button class="btn-accion editar" (click)="editar(p)" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-accion eliminar" (click)="confirmarEliminar(p)" title="Eliminar">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Modal form -->
+@if (mostrarForm) {
+  <app-productos-form
+    [producto]="productoEdit"
+    [categorias]="categorias"
+    (guardado)="onFormGuardado()"
+    (cancelado)="onFormCancelado()">
+  </app-productos-form>
+}
+
+<!-- Modal eliminar -->
+@if (mostrarConfirm) {
+  <div class="modal-backdrop-custom" (click)="cancelarEliminar()"></div>
+  <div class="modal-custom-wrap">
+    <div class="modal-custom modal-confirm">
+      <div class="modal-confirm-icon">🗑️</div>
+      <h5>¿Eliminar producto?</h5>
+      <p>Estás a punto de eliminar <strong>{{ productoAEliminar?.nombre }}</strong>. Esta acción no se puede deshacer.</p>
+      <div class="modal-btns">
+        <button class="btn-modal-cancelar" (click)="cancelarEliminar()">Cancelar</button>
+        <button class="btn-modal-danger" (click)="eliminar()">
+          <i class="bi bi-trash3"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+}

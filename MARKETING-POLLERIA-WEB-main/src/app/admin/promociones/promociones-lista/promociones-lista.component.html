@@ -1,0 +1,81 @@
+<div class="admin-page">
+
+  <div class="admin-page-header">
+    <div>
+      <h1 class="admin-page-title">Promociones</h1>
+      <p class="admin-page-sub">{{ promociones.length }} promoción(es)</p>
+    </div>
+    <button class="btn-admin-primary" (click)="nueva()">
+      <i class="bi bi-plus-lg"></i> Nueva promoción
+    </button>
+  </div>
+
+  <div class="promos-admin-grid">
+    @if (promociones.length === 0) {
+      <div class="admin-empty-state">
+        <i class="bi bi-megaphone" style="font-size:2.5rem;color:#ddd;"></i>
+        <p>Sin promociones registradas</p>
+      </div>
+    }
+
+    @for (promo of promociones; track promo.id) {
+      <div class="promo-admin-card">
+        <div class="promo-admin-img-wrap">
+          <img [src]="promo.imagen" [alt]="promo.titulo" class="promo-admin-img"
+               onerror="this.src='assets/images/placeholder-promo.jpg'">
+          <span class="promo-admin-badge" [class.badge-on]="promo.activa" [class.badge-off]="!promo.activa">
+            {{ promo.activa ? 'Activa' : 'Inactiva' }}
+          </span>
+        </div>
+        <div class="promo-admin-body">
+          <h6 class="promo-admin-titulo">{{ promo.titulo }}</h6>
+          <p class="promo-admin-desc">{{ promo.descripcion }}</p>
+          @if (promo.fechaInicio || promo.fechaFin) {
+            <div class="promo-admin-fechas">
+              @if (promo.fechaInicio) {
+                <span><i class="bi bi-calendar-check"></i> Desde: {{ promo.fechaInicio }}</span>
+              }
+              @if (promo.fechaFin) {
+                <span><i class="bi bi-calendar-x"></i> Hasta: {{ promo.fechaFin }}</span>
+              }
+            </div>
+          }
+          <div class="promo-admin-acciones">
+            <button class="btn-accion editar" (click)="editar(promo)" title="Editar">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button class="btn-accion eliminar" (click)="confirmarEliminar(promo)" title="Eliminar">
+              <i class="bi bi-trash3"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
+
+@if (mostrarForm) {
+  <app-promociones-form
+    [promocion]="promoEdit"
+    (guardado)="onFormGuardado()"
+    (cancelado)="onFormCancelado()">
+  </app-promociones-form>
+}
+
+@if (mostrarConfirm) {
+  <div class="modal-backdrop-custom" (click)="cancelarEliminar()"></div>
+  <div class="modal-custom-wrap">
+    <div class="modal-custom modal-confirm">
+      <div class="modal-confirm-icon">🗑️</div>
+      <h5>¿Eliminar promoción?</h5>
+      <p>Estás a punto de eliminar <strong>{{ promoAEliminar?.titulo }}</strong>.</p>
+      <div class="modal-btns">
+        <button class="btn-modal-cancelar" (click)="cancelarEliminar()">Cancelar</button>
+        <button class="btn-modal-danger" (click)="eliminar()">
+          <i class="bi bi-trash3"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+}

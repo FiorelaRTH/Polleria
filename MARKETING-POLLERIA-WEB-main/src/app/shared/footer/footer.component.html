@@ -1,0 +1,111 @@
+<footer class="footer">
+  <!-- Ola decorativa -->
+  <div class="footer-wave">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#1A1A1A"/>
+    </svg>
+  </div>
+
+  <div class="footer-body">
+    <div class="container">
+      <div class="row gy-4">
+
+        <!-- Marca -->
+        <div class="col-12 col-md-4">
+          <div class="footer-brand">
+            @if (configuracion.logo) {
+              <img [src]="configuracion.logo" [alt]="configuracion.nombreNegocio" class="footer-logo-img">
+            } @else {
+              <span class="footer-emoji">🍗</span>
+            }
+            <div>
+              <h5 class="footer-title">{{ configuracion.nombreNegocio || 'Pollería El Chino' }}</h5>
+              <p class="footer-tagline">El sabor que te hace volver</p>
+            </div>
+          </div>
+          <p class="footer-desc">
+            Más de 20 años llevando el mejor pollo a la brasa de Arequipa a tu mesa.
+            Ingredientes frescos, sazón única.
+          </p>
+          <!-- Redes -->
+          <div class="social-links">
+            @if (configuracion.facebook) {
+              <a [href]="configuracion.facebook" target="_blank" class="social-btn" title="Facebook">
+                <i class="bi bi-facebook"></i>
+              </a>
+            }
+            @if (configuracion.instagram) {
+              <a [href]="configuracion.instagram" target="_blank" class="social-btn" title="Instagram">
+                <i class="bi bi-instagram"></i>
+              </a>
+            }
+            @if (configuracion.whatsapp) {
+              <a [href]="getWhatsappUrl()" target="_blank" class="social-btn whatsapp-btn" title="WhatsApp">
+                <i class="bi bi-whatsapp"></i>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- Navegación -->
+        <div class="col-6 col-md-2">
+          <h6 class="footer-section-title">Menú</h6>
+          <ul class="footer-links">
+            <li><a routerLink="/">Inicio</a></li>
+            <li><a routerLink="/carta">Carta</a></li>
+            <li><a routerLink="/promociones">Promociones</a></li>
+            <li><a routerLink="/contacto">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Categorías -->
+        <div class="col-6 col-md-2">
+          <h6 class="footer-section-title">Carta</h6>
+          <ul class="footer-links">
+            <li><a routerLink="/carta">Pollos</a></li>
+            <li><a routerLink="/carta">Combos</a></li>
+            <li><a routerLink="/carta">Bebidas</a></li>
+          </ul>
+        </div>
+
+        <!-- Contacto -->
+        <div class="col-12 col-md-4">
+          <h6 class="footer-section-title">Encuéntranos</h6>
+          <ul class="footer-info">
+            @if (configuracion.direccion) {
+              <li>
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>{{ configuracion.direccion }}</span>
+              </li>
+            }
+            @if (configuracion.horario) {
+              <li>
+                <i class="bi bi-clock-fill"></i>
+                <span>{{ configuracion.horario }}</span>
+              </li>
+            }
+            @if (configuracion.telefono) {
+              <li>
+                <i class="bi bi-telephone-fill"></i>
+                <span>{{ configuracion.telefono }}</span>
+              </li>
+            }
+            @if (configuracion.correo) {
+              <li>
+                <i class="bi bi-envelope-fill"></i>
+                <span>{{ configuracion.correo }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+        <p class="mb-0">© {{ anio }} {{ configuracion.nombreNegocio || 'Pollería El Chino' }}. Todos los derechos reservados.</p>
+        <p class="mb-0 footer-credit">Hecho con ❤️ en Apurímac</p>
+      </div>
+    </div>
+  </div>
+</footer>

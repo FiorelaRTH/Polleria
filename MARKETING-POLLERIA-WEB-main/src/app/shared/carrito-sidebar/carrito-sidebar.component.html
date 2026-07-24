@@ -1,0 +1,99 @@
+<!-- Overlay -->
+@if (visible) {
+  <div class="carrito-overlay" (click)="cerrar()"></div>
+}
+
+<!-- Sidebar -->
+<aside class="carrito-sidebar" [class.open]="visible">
+
+  <!-- Header -->
+  <div class="carrito-header">
+    <div class="carrito-header-title">
+      <i class="bi bi-bag-heart-fill"></i>
+      <span>Mi Pedido</span>
+      @if (items.length > 0) {
+        <span class="carrito-count">{{ carritoService.getCantidadTotal() }}</span>
+      }
+    </div>
+    <button class="btn-cerrar" (click)="cerrar()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <!-- Contenido -->
+  <div class="carrito-body no-scrollbar">
+
+    <!-- Vacío -->
+    @if (items.length === 0 && !mostrarFormulario) {
+      <div class="carrito-empty">
+        <div class="empty-icon">🛒</div>
+        <h6>Tu pedido está vacío</h6>
+        <p>Agrega productos desde nuestra carta</p>
+        <button class="btn-primary-custom" (click)="cerrar()">Ver Carta</button>
+      </div>
+    }
+
+    <!-- Items -->
+    @if (items.length > 0 && !mostrarFormulario) {
+      <div class="carrito-items">
+        @for (item of items; track item.producto.id) {
+          <div class="carrito-item">
+            <div class="item-img-wrap">
+              <img [src]="item.producto.imagen" [alt]="item.producto.nombre" class="item-img"
+                   onerror="this.src='assets/images/placeholder.jpg'">
+            </div>
+            <div class="item-info">
+              <p class="item-nombre">{{ item.producto.nombre }}</p>
+              <p class="item-precio">S/.{{ (item.producto.precio * item.cantidad).toFixed(2) }}</p>
+              <div class="item-controles">
+                <button class="btn-qty" (click)="disminuir(item.producto.id)">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <span class="qty-val">{{ item.cantidad }}</span>
+                <button class="btn-qty" (click)="aumentar(item.producto.id)">
+                  <i class="bi bi-plus"></i>
+                </button>
+                <button class="btn-delete" (click)="eliminar(item.producto.id)">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Formulario promocional -->
+    @if (mostrarFormulario) {
+      <app-formulario-promocional
+        (guardado)="onFormularioGuardado()"
+        (omitido)="onFormularioOmitido()">
+      </app-formulario-promocional>
+    }
+
+  </div>
+
+  <!-- Footer con total y botón -->
+  @if (items.length > 0 && !mostrarFormulario) {
+    <div class="carrito-footer">
+      <div class="total-row">
+        <span class="total-label">Total:</span>
+        <span class="total-valor">S/.{{ total.toFixed(2) }}</span>
+      </div>
+      <button class="btn-confirmar" (click)="confirmarPedido()">
+        <i class="bi bi-whatsapp"></i>
+        Pedir por WhatsApp
+      </button>
+      <p class="carrito-nota">Te redirigiremos a WhatsApp para confirmar</p>
+    </div>
+  }
+
+</aside>
+
+<!-- Modal confirmación -->
+<app-modal-confirmacion
+  [visible]="mostrarModal"
+  [total]="total"
+  (aceptar)="onModalAceptar()"
+  (cancelar)="onModalCancelar()">
+</app-modal-confirmacion>
