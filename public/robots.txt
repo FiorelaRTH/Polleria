@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://polleria-elchino.netlify.app/sitemap.xml
