@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 
   whatsappUrl = 'https://wa.me/51999999999';
   carritoVisible = false;
-  esAdminRuta = false;
+  esAdminRuta = window.location.pathname.startsWith('/admin');
 
   constructor(
     private configService: ConfiguracionService,
